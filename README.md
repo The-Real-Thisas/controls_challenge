@@ -19,22 +19,28 @@ Machine learning models can drive cars, paint beautiful pictures and write passa
 ## Getting Started
 We'll be using a synthetic dataset based on the [comma-steering-control](https://github.com/commaai/comma-steering-control) dataset for this challenge. These are actual car and road states from [openpilot](https://github.com/commaai/openpilot) users.
 
-```
-# install required packages
-# recommended python==3.11
-pip install -r requirements.txt
+```bash
+# Option 1: uv (recommended)
+# Install uv: https://docs.astral.sh/uv/getting-started/installation/
+uv sync
 
+# Option 2: pip (fallback, recommended python==3.11)
+pip install -r requirements.txt
+```
+
+```bash
 # test this works
-python tinyphysics.py --model_path ./models/tinyphysics.onnx --data_path ./data/00000.csv --debug --controller pid
+uv run python tinyphysics.py --model_path ./models/tinyphysics.onnx --data_path ./data/00000.csv --debug --controller pid
+# or with pip: python tinyphysics.py --model_path ./models/tinyphysics.onnx --data_path ./data/00000.csv --debug --controller pid
 ```
 
 There are some other scripts to help you get aggregate metrics:
-```
-# batch Metrics of a controller on lots of routes
-python tinyphysics.py --model_path ./models/tinyphysics.onnx --data_path ./data --num_segs 100 --controller pid
+```bash
+# batch metrics of a controller on lots of routes
+uv run python tinyphysics.py --model_path ./models/tinyphysics.onnx --data_path ./data --num_segs 100 --controller pid
 
 # generate a report comparing two controllers
-python eval.py --model_path ./models/tinyphysics.onnx --data_path ./data --num_segs 100 --test_controller pid --baseline_controller zero
+uv run python eval.py --model_path ./models/tinyphysics.onnx --data_path ./data --num_segs 100 --test_controller pid --baseline_controller zero
 
 ```
 You can also use the notebook at [`experiment.ipynb`](https://github.com/commaai/controls_challenge/blob/master/experiment.ipynb) for exploration.
@@ -57,8 +63,8 @@ Run the following command, then submit `report.html` and your code to [this form
 
 Competitive scores (`total_cost<100`) will be added to the leaderboard
 
-```
-python eval.py --model_path ./models/tinyphysics.onnx --data_path ./data --num_segs 5000 --test_controller <insert your controller name> --baseline_controller pid
+```bash
+uv run python eval.py --model_path ./models/tinyphysics.onnx --data_path ./data --num_segs 5000 --test_controller <insert your controller name> --baseline_controller pid
 ```
 
 ## Changelog
